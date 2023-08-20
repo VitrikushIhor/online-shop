@@ -4,11 +4,11 @@ import {Top} from "./Top";
 import {Main} from "./Main";
 
 
-export const Header = () => {
+export const Header = ({country}) => {
 	return (
 		 <header className={styles.header}>
 			 <Ad/>
-			 <Top/>
+			 <Top country={country}/>
 			 <Main/>
 		 </header>
 	);

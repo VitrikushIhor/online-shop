@@ -3,7 +3,7 @@ import Link from "next/link";
 import {IoLocationSharp} from "react-icons/io5";
 
 
-export const Copyrigth = () => {
+export const Copyrigth = ({country}) => {
 	return (
 		 <div className={styles.footer__copyright}>
 			 <section>©2023 SHOPPAY All Rights Resereved</section>
@@ -20,7 +20,7 @@ export const Copyrigth = () => {
 					 }
 					 <li>
 						 <a>
-							 <IoLocationSharp/> Ukraine
+							 <IoLocationSharp/> {country.name}
 						 </a>
 					 </li>
 				 </ul>

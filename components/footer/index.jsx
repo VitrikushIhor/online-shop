@@ -6,7 +6,7 @@ import {Payment} from "./Payment";
 import {Copyrigth} from "./Copyright";
 
 
-export const Footer = () => {
+export const Footer = ({country}) => {
 	return (
 		 <footer className={styles.footer}>
 			 <div className={styles.footer__container}>
@@ -14,7 +14,7 @@ export const Footer = () => {
 				 <Socials/>
 				 <NewsLetter/>
 				 <Payment/>
-				 <Copyrigth/>
+				 <Copyrigth country={country}/>
 			 </div>
 		 </footer>
 	);
