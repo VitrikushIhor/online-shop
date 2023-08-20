@@ -6,7 +6,7 @@ import Link from "next/link";
 import {useState} from "react";
 import {UserMenu} from "./UserMenu";
 
-export const Top = () => {
+export const Top = ({country}) => {
 	const [logIn, setLogIn] = useState(true);
 	const [visible, setVisible] = useState(false);
 	return (
@@ -15,8 +15,8 @@ export const Top = () => {
 				 <div></div>
 				 <ul className={styles.top__list}>
 					 <li className={styles.li}>
-						 <img src="https://i1.poltava.to/news/7/630/photo.jpg" alt=""/>
-						 <span>Ukraine</span>
+						 <img src={country.flag} alt=""/>
+						 <span>{country.name}</span>
 					 </li>
 					 <li className={styles.li}>
 						 <MdSecurity/>
