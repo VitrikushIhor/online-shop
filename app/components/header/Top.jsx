@@ -5,10 +5,14 @@ import {RiAccountCircleLine, RiArrowDropDownFill} from "react-icons/ri";
 import Link from "next/link";
 import {useState} from "react";
 import {UserMenu} from "./UserMenu";
+import {useSession} from "next-auth/react";
+import {useSelector} from "react-redux";
 
-export const Top = ({country}) => {
+export const Top = () => {
 	const [logIn, setLogIn] = useState(true);
+	const {data}=useSession()
 	const [visible, setVisible] = useState(false);
+	const {country} = useSelector((state) => state.global)
 	return (
 		 <div className={styles.top}>
 			 <div className={styles.top__container}>
@@ -38,12 +42,12 @@ export const Top = ({country}) => {
 							onMouseOver={() => setVisible(true)}
 							onMouseLeave={() => setVisible(false)}
 							className={styles.li}>
-						 {logIn ? <li className={styles.li}>
+						 {data ? <li className={styles.li}>
 							 <div className={styles.flex}>
 								 <img
-										src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png"
+										src={data.user.image}
 										alt=""/>
-								 <span>Ihor</span>
+								 <span>{data.user.name}</span>
 								 <RiArrowDropDownFill/>
 							 </div>
 						 </li> : <li className={styles.li}>
@@ -53,7 +57,7 @@ export const Top = ({country}) => {
 								 <RiArrowDropDownFill/>
 							 </div>
 						 </li>}
-						 {visible && <UserMenu logIn={logIn}/>}
+						 {visible && <UserMenu logIn={data}/>}
 					 </li>
 				 </ul>
 			 </div>

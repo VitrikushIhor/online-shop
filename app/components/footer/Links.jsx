@@ -12,7 +12,7 @@ export const Links = () => {
 							 <b key={link.heading + i}>{link.heading}</b>
 						)}
 						{link.links.map((link, index) => (
-							 <li key={link.name + index}>
+							 <li key={index}>
 								 <Link href={link.link}>{link.name}</Link>
 							 </li>
 						))}
@@ -35,10 +35,6 @@ const links = [
 			},
 			{
 				name: "Social Responsibility",
-				link: "",
-			},
-			{
-				name: "",
 				link: "",
 			},
 		],

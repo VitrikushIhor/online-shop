@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss"
 import Link from "next/link";
+import {signIn, signOut} from "next-auth/react";
 
 export const UserMenu = ({logIn}) => {
 	return (
@@ -9,19 +10,19 @@ export const UserMenu = ({logIn}) => {
 				 logIn ?
 						<div className={styles.flex}>
 							<img
-								 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png"
+								 src={logIn.user.image}
 								 alt=""
 								 className={styles.menu__img}
 							/>
 							<div className={styles.col}>
 								<span>Welcome Back,</span>
-								<h3>Ihor</h3>
-								<span>Sing Out</span>
+								<h3>{logIn.user.name}</h3>
+								<span onClick={()=>signOut()}>Sing Out</span>
 							</div>
 						</div>
 						: <div className={styles.flex}>
 							<button className="btn_primary">Register</button>
-							<button className="btn_outlined">Login</button>
+							<button className="btn_outlined" onClick={()=>signIn()}>Login</button>
 						</div>
 			 }
 			 <ul>

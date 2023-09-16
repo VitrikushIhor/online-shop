@@ -1,24 +1,29 @@
-import {Header} from "../components/header";
-import {Footer} from "../components/footer";
-import axios from "axios";
+import {Layout} from "../app/components/layout";
+import {IPService} from "../app/services/Ip-service";
+import {useDispatch} from "react-redux";
+import {setCountry} from "../app/store/globalSlice";
 
 export default function Home({country}) {
-	console.log(country)
+	const dispatch = useDispatch()
+	dispatch(setCountry(country))
 	return (
-		 <div>
-			 <Header country={country}/>
-			 <Footer country={country}/>
-		 </div>
+		 <Layout>
+			 HomePage
+		 </Layout>
 	)
 }
-
 export async function getServerSideProps() {
-	let data = await axios.get("https://api.ipregistry.co/?key=d46oao4p1nsuv22l").then((res) => {
-		return res.data.location.country
-	}).catch(err => console.log(err))
+	let data;
+	try {
+		const response = await IPService.getCountryFromIP();
+		data = response.data.location.country;
+	} catch (err) {
+		console.log(err);
+	}
+
 	return {
 		props: {
-			country: {name: data.name, flag: data.flag.emojitwo}
+			country: { name: data.name, flag: data.flag.emojitwo }
 		}
-	}
+	};
 }
