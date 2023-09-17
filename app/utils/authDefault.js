@@ -40,3 +40,22 @@ export const registerValidation = Yup.object({
 		 .required("Confirm your password.")
 		 .oneOf([Yup.ref("password")], "Passwords must match."),
 });
+
+export const emailValidation = Yup.object({
+	email: Yup.string()
+		 .required(
+				"You'll need this when you log in and if you ever need to reset your password."
+		 )
+		 .email("Enter a valid email address."),
+});
+
+
+export const passwordValidation = Yup.object({
+	password: Yup.string()
+		 .required("Please enter your new password.")
+		 .min(6, "Password must be atleast 6 characters.")
+		 .max(36, "Password can't be more than 36 characters"),
+	confirm_password: Yup.string()
+		 .required("Confirm your password.")
+		 .oneOf([Yup.ref("password")], "Passwords must match."),
+});
