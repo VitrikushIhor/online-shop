@@ -5,7 +5,7 @@ import clientPromise from "./lib/mongodb";
 import {MongoDBAdapter} from "@next-auth/mongodb-adapter";
 import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "../../../app/models/UserModel";
+import User from "../../../app/backendTools/models/UserModel";
 import bcrypt from "bcrypt";
 import db from "../../../app/utils/db";
 

@@ -58,7 +58,7 @@ export const Login = ({singInHandler,user,providers,handleChange}) => {
 									)}
 									<CircleButton type={"submit"} text={"Sing In"}/>
 									<div className={styles.forgot}>
-										<Link href={"/forgot"}>Forgot Password ?</Link>
+										<Link href={"/auth/forgot"}>Forgot Password ?</Link>
 									</div>
 								</Form>
 						 )
