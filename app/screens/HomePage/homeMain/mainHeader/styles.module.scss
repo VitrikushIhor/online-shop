@@ -1,0 +1,21 @@
+.header{
+	grid-area: header;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	@media (max-width: 730px) {
+		display: none !important;
+	}
+	ul {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		li {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			font-size: 19px;
+			color: $blue-color;
+		}
+	}
+}

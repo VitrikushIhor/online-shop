@@ -1,0 +1,34 @@
+import styles from "./styles.module.scss";
+import {useEffect, useState} from "react";
+import {calcaulateDiff} from "../../utils/calcaulateDiff";
+
+
+export const Countdown = ({date}) => {
+	const [timeInMs, setTimeInMs] = useState(date.getTime());
+	const [remainingTime, setRemainingTime] = useState();
+	useEffect(() => {
+		setTimeInMs(date.getTime());
+	}, [date]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			updateRemainingTime(timeInMs);
+		}, 1000);
+		return () => clearInterval(interval);
+	}, [timeInMs]);
+	const updateRemainingTime = (timeInMs) => {
+		setRemainingTime(calcaulateDiff(timeInMs));
+	};
+	return (
+		 <div className={styles.countdown}>
+			 <span>{remainingTime?.hours.slice(0, 1)}</span>
+			 <span>{remainingTime?.hours.slice(1, 2)}</span>
+			 <b>:</b>
+			 <span>{remainingTime?.minutes.slice(0, 1)}</span>
+			 <span>{remainingTime?.minutes.slice(1, 2)}</span>
+			 <b>:</b>
+			 <span>{remainingTime?.seconds.slice(0, 1)}</span>
+			 <span>{remainingTime?.seconds.slice(1, 2)}</span>
+		 </div>
+	);
+};
+

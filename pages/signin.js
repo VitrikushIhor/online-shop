@@ -26,7 +26,6 @@ export async function getServerSideProps(context) {
 
 	const session = await getSession({ req });
 	const { callbackUrl } = query;
-
 	if (session) {
 		return {
 			redirect: {
@@ -34,13 +33,14 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
+
 	const csrfToken = await getCsrfToken(context);
 	const providers = Object.values(await getProviders());
 	return {
 		props: {
 			providers,
 			csrfToken,
-			callbackUrl,
+			callbackUrl:callbackUrl || "/",
 		},
 	};
 }

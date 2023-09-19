@@ -2,13 +2,20 @@ import {Layout} from "../app/components/layout";
 import {IPService} from "../app/services/Ip-service";
 import {useDispatch} from "react-redux";
 import {setCountry} from "../app/store/globalSlice";
+import Meta from "../app/components/meta";
+import {HomePage} from "../app/screens/HomePage";
 
 export default function Home({country}) {
 	const dispatch = useDispatch()
 	dispatch(setCountry(country))
 	return (
 		 <Layout>
-			 HomePage
+			 <Meta
+					title="ShopPay"
+					description="Home Page"
+			 >
+				 <HomePage/>
+			 </Meta>
 		 </Layout>
 	)
 }
