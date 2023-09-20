@@ -17,7 +17,7 @@ export const FlashCard = ({product, key}) => {
 			 </div>
 			 <div className={styles.card__price}>
         <span>
-          USD{(product.price - product.price / product.discount).toFixed(2)}$
+          USD {(product.price - product.price / product.discount).toFixed(2)}$
         </span>
 				 <span>
           -USD

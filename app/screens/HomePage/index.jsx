@@ -12,16 +12,22 @@ import {
 } from "../../data/home";
 import {useMediaQuery} from "react-responsive";
 import {ProductsSwiper} from "../../components/ProductsSwiper";
+import {ProductCart} from "../../components/productCart";
 
 
-export const HomePage = () => {
+export const HomePage = ({products}) => {
 	const isMedium = useMediaQuery({ query: "(max-width:850px)" });
 	const isMobile = useMediaQuery({ query: "(max-width:550px)" });
 	return (
 		 <section className={styles.home}>
-			 <div className={styles.container}>
+			 <div className="container">
 				 <HomeMain/>
 				 <FlashDeals/>
+					<div className={styles.home__products}>
+						{products.map((product) => (
+							 <ProductCart product={product}  key={product._id}/>
+						))}
+					</div>
 				 <div className={styles.home__category}>
 
 					 <HomeCategory
