@@ -1,0 +1,15 @@
+.simillar_swiper {
+	max-width: 650px;
+	height: 160px;
+	margin-top: 1rem;
+	img {
+		width: 100px;
+		height: 160px;
+		object-fit: cover;
+		cursor: pointer;
+		@media (min-width: 461px) {
+			width: 150px;
+			height: 200px;
+		}
+	}
+}
