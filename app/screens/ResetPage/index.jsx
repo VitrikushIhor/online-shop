@@ -10,12 +10,12 @@ import {passwordValidation} from "../../utils/authDefault";
 import LoginInput from "../../components/inputs/loginInput";
 import {CircleButton} from "../../components/buttons/circleButton";
 import {useRouter} from "next/router";
+import {toast} from "react-toastify";
 
 
 export const ResetPage = ({userId}) => {
 	const [password, setPassword] = useState("");
 	const [confirm_password, setConfirm_password] = useState("");
-	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	const { push } = useRouter();
 
@@ -29,10 +29,11 @@ export const ResetPage = ({userId}) => {
 				password: password,
 			};
 			await signIn("credentials", options);
+			toast.success(`Password reset successfully`)
 			await push("/");
 		} catch (error) {
 			setLoading(false);
-			setError(error.response.data.message);
+			toast.error(error.response.data.message)
 		}
 	};
 
@@ -77,9 +78,6 @@ export const ResetPage = ({userId}) => {
 								  />
 
 								  <CircleButton type="submit" text="Submit" />
-								  <div style={{ marginTop: "10px" }}>
-									  {error && <span className={styles.error}>{error}</span>}
-								  </div>
 							  </Form>
 						 )}
 					 </Formik>

@@ -8,27 +8,29 @@ import {CircleButton} from "../../components/buttons/circleButton";
 import {emailValidation} from "../../utils/authDefault";
 import {authService} from "../../services/auth/auth-service";
 import {DotLoaderSpiner} from "../../components/loaders/dotLoader";
+import {toast} from "react-toastify";
+import {useRouter} from "next/router";
 
 
 export const ForgotPage = () => {
 
 	const [email, setEmail] = useState("");
-	const [error, setError] = useState("");
-	const [success, setSuccess] = useState("");
 	const [loading, setLoading] = useState(false);
+	const { push } = useRouter();
 
 	const forgotHandler = async () => {
 		try {
 			setLoading(true);
 			const { data } = await authService.forgotPassword({email})
-			setError("");
-			setSuccess(data.message);
 			setLoading(false);
 			setEmail("");
+			toast.success(`${data.message}`)
+			setTimeout(async () => {
+				await push("/signin")
+			}, 1000);
 		} catch (error) {
 			setLoading(false);
-			setSuccess("");
-			setError(error.response.data.message);
+			toast.error(`${error.response.data.message}`);
 		}
 	};
 
@@ -65,10 +67,6 @@ export const ForgotPage = () => {
 							 />
 
 							 <CircleButton type="submit" text="Send link" />
-							 <div style={{ marginTop: "10px" }}>
-								 {error && <span className={styles.error}>{error}</span>}
-								 {success && <span className={styles.success}>{success}</span>}
-							 </div>
 						 </Form>
 					)}
 				</Formik>

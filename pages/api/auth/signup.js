@@ -5,7 +5,7 @@ import User from "../../../app/backendTools/models/UserModel";
 import bcrypt from "bcrypt";
 import {createActivationToken} from "../../../app/utils/tokens";
 import {sendEmail} from "../../../app/utils/sendEmails";
-import {activateEmailTemplate} from "../../../app/emails/activateEmailTemplate";
+import {activateEmailTemplate} from "../../../app/backendTools/emails/activateEmailTemplate";
 
 
 const handler = nc();

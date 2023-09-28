@@ -11,7 +11,7 @@ export const CartEmpty = () => {
 			 <h1>Cart is Empty</h1>
 			 {
 				 !session &&
-				  <button onClick={()=>{signIn()}} className={styles.empty__btn}>Shop Now</button>
+				  <button onClick={()=>{signIn()}} className={styles.empty__btn}>Sing In / Register</button>
 			 }
 			 <Link href={"/browse"}>
 				 <a>
