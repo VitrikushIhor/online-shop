@@ -2,8 +2,8 @@ import nc from "next-connect"
 import db from "../../../app/utils/db";
 import {sendEmail} from "../../../app/utils/sendEmails";
 import {createResetToken} from "../../../app/utils/tokens";
-import {resetEmailTemplate} from "../../../app/emails/resetEmail";
 import User from "../../../app/backendTools/models/UserModel";
+import {resetEmailTemplate} from "../../../app/backendTools/emails/resetEmail";
 
 
 const handler = nc();

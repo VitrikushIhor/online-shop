@@ -7,6 +7,7 @@ import {DotLoaderSpiner} from "../../components/loaders/dotLoader";
 import {Login} from "./Login";
 import {Register} from "./Register";
 import {authService} from "../../services/auth/auth-service";
+import {toast} from "react-toastify";
 
 
 export const SingInPage = ({providers ,callbackUrl,csrfToken}) => {
@@ -14,7 +15,7 @@ export const SingInPage = ({providers ,callbackUrl,csrfToken}) => {
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState(initialValues)
 
-	const {login_email,login_password,email,password,name,error}=user
+	const {login_email,login_password,email,password,name}=user
 	const { push } = useRouter();
 
 	const handleChange=(e)=>{
@@ -26,7 +27,7 @@ export const SingInPage = ({providers ,callbackUrl,csrfToken}) => {
 		try {
 			setLoading(true);
 			const { data } = await authService.register({ name,email,password})
-			setUser({ ...user, error: "", success: data.message });
+			toast.success(`${data.message}`);
 			setLoading(false);
 			setTimeout(async () => {
 				let options = {
@@ -36,18 +37,20 @@ export const SingInPage = ({providers ,callbackUrl,csrfToken}) => {
 				};
 				await signIn("credentials", options);
 				await push("/");
-			}, 2000);
+			}, 1000);
 		} catch (err) {
 			setLoading(false);
 			const errorMessage = err.response ? err.response.data.message : err.message;
-			setUser({ ...user, success: "", error: errorMessage });
+			toast.error(`${errorMessage}`)
 		}
 
 	};
 
 	const singInHandler =async ()=>{
 		try {
+
 			setLoading(true)
+
 			let options = {
 				redirect:false,
 				email: login_email,
@@ -55,14 +58,17 @@ export const SingInPage = ({providers ,callbackUrl,csrfToken}) => {
 
 			}
 			const res = await signIn("credentials",options)
-			setUser({...user,success: "",error: ""})
+
 			setLoading(false)
+
 			if (res?.error){
 				setLoading(false)
-				setUser({...user,login_error:res?.error})
+				toast.error(`${res?.error}`);
 			}else {
+			toast.success(`Login Success`);
 				await push(callbackUrl || "/");
 			}
+
 		}catch (e){
 
 		}

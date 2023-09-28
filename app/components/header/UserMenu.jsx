@@ -21,7 +21,7 @@ export const UserMenu = ({logIn}) => {
 							</div>
 						</div>
 						: <div className={styles.flex}>
-							<button className="btn_primary">Register</button>
+							<button className="btn_primary" onClick={()=>signIn()}>Register</button>
 							<button className="btn_outlined" onClick={()=>signIn()}>Login</button>
 						</div>
 			 }

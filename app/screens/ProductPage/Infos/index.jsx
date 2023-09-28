@@ -6,20 +6,21 @@ import Link from "next/link";
 import {TbMinus, TbPlus} from "react-icons/tb";
 import {BsHandbagFill, BsHeart} from "react-icons/bs";
 import {useSession} from "next-auth/react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Share} from "../Share";
 import {AccordianInfos} from "../Accordian";
 import {SimillarSwiper} from "../SimillarSwiper";
 import {ProductsService} from "../../../services/products/products-service";
+import {addToCart, updateCart} from "../../../store/cartSlice";
+import {toast} from "react-toastify";
 
 export const Infos = ({product,setActiveImg}) => {
 	const router= useRouter();
 	const { data: session } = useSession();
 	const [size, setSize] = useState(router.query.size);
 	const [qty, setQty] = useState(1);
-	const [error, setError] = useState("");
-	const [success, setSuccess] = useState("");
 	const { cart } = useSelector((state) => ({ ...state }));
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setSize("");
@@ -33,11 +34,43 @@ export const Infos = ({product,setActiveImg}) => {
 	}, [router.query.size]);
 
 
-const addToCartHandler = async () => {
-	const {data}= await ProductsService.getById({_id:product._id,size:router.query.size,style:product.style})
-	console.log(data)
-}
+	const addToCartHandler = async () => {
+		if (!router.query.size) {
+			toast.error("Please Select a size");
+			return;
+		}
+		const {data} = await ProductsService.getById({_id: product._id, size: router.query.size, style: product.style})
 
+		if (qty > data.quantity) {
+			toast.error("The Quantity you have choosed is more than in stock. Try and lower the Qty");
+		} else if (data.quantity < 1) {
+			toast.error("This Product is out of stock.");
+			return;
+		} else {
+			let _uid = `${data._id}_${product.style}_${router.query.size}`;
+			let exist = cart.cartItems.find((p) => p._uid === _uid);
+
+			if (exist) {
+				let newCart = cart.cartItems.map((p) => {
+					if (p._uid === exist._uid) {
+						return { ...p, qty: qty };
+					}
+					return p;
+				});
+				dispatch(updateCart(newCart));
+			} else {
+				toast.success("Product Added to Cart")
+				dispatch(
+					 addToCart({
+						 ...data,
+						 qty,
+						 size: data.size,
+						 _uid,
+					 })
+				);
+			}
+		}
+	};
 
 
 	return (
@@ -138,8 +171,6 @@ const addToCartHandler = async () => {
 					 WISHLIST
 				 </button>
 			 </div>
-			 {error && <span className={styles.error}>{error}</span>}
-			 {success && <span className={styles.success}>{success}</span>}
 			 <Share/>
 			 <AccordianInfos details={[product.description, ...product.details]} />
 			 <SimillarSwiper />

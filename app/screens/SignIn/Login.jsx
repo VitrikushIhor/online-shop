@@ -10,7 +10,7 @@ import {Socials} from "./Socials";
 
 export const Login = ({singInHandler,user,providers,handleChange}) => {
 
-	const {login_email,login_password,login_error}=user
+	const {login_email,login_password}=user
 
 	return (
 		 <div className={styles.login__container}>
@@ -53,9 +53,6 @@ export const Login = ({singInHandler,user,providers,handleChange}) => {
 										 placeholder="Enter password"
 										 onChange={handleChange}
 									/>
-									{login_error && (
-										 <span className={styles.error}>{login_error}</span>
-									)}
 									<CircleButton type={"submit"} text={"Sing In"}/>
 									<div className={styles.forgot}>
 										<Link href={"/auth/forgot"}>Forgot Password ?</Link>

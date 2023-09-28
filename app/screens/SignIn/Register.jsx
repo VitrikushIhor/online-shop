@@ -7,7 +7,7 @@ import {CircleButton} from "../../components/buttons/circleButton";
 
 export const Register = ({signUpHandler,user,handleChange,csrfToken}) => {
 	const {
-		confirm_password,email, password, name, error, success}=user
+		confirm_password,email, password, name}=user
 	return (
 		 <div className={styles.login__container}>
 			 <div className={styles.login__form}>
@@ -68,9 +68,7 @@ export const Register = ({signUpHandler,user,handleChange,csrfToken}) => {
 					 )}
 				 </Formik>
 				 <div>
-					 {success && <span className={styles.success}>{success}</span>}
 				 </div>
-				 <div>{error && <span className={styles.error}>{error}</span>}</div>
 			 </div>
 		 </div>
 	);
