@@ -25,7 +25,6 @@ const{data:session}=	useSession()
 const saveToCartHandler = async () => {
 	if (session){
 const res= await userService.saveCart({cart:selected,userId:session.user.id})
-		console.log(res)
 		await push("/checkout")
 	}else{
 		await signIn()
@@ -39,16 +38,17 @@ const res= await userService.saveCart({cart:selected,userId:session.user.id})
 		);
 	}, [selected]);
 
-	useEffect(() => {
 
-		const update= async ()=>{
-		const {data}= await userService.updateCart({products:cart.cartItems})
-		dispatch(updateCart(data))
+	useEffect(() => {
+		const update = async () => {
+			const data= await userService.updateCart({products:cart.cartItems})
+			dispatch(updateCart(data))
 		}
-		if (cart?.cartItems?.length>0){
+		if (cart.cartItems.length > 0 ) {
 			update()
 		}
-	}, []);
+	}, [])
+
 	return (
 		 <div>
 			 <Header/>

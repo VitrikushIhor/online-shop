@@ -26,7 +26,5 @@ export const userService = {
 		} catch (error) {
 			console.log(error.message);
 		}
-
-
 	},
 };
