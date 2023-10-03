@@ -13,27 +13,27 @@ import {userService} from "../../services/user/user-service";
 import {updateCart} from "../../store/cartSlice";
 
 export const CartPage = () => {
-const{data:session}=	useSession()
-	const { push } = useRouter();
-	const { cart } = useSelector((state) => ({ ...state }));
+	const {data: session} = useSession()
+	const {push} = useRouter();
+	const {cart} = useSelector((state) => ({...state}));
 	const [selected, setSelected] = useState([]);
 	const [shippingFee, setShippingFee] = useState(0);
 	const [subtotal, setSubtotal] = useState(0);
 	const [total, setTotal] = useState(0);
 	const dispatch = useDispatch()
 
-const saveToCartHandler = async () => {
-	if (session){
-const res= await userService.saveCart({cart:selected,userId:session.user.id})
-		await push("/checkout")
-	}else{
-		await signIn()
+	const saveToCartHandler = async () => {
+		if (session) {
+			const res = await userService.saveCart({cart: selected})
+			await push("/checkout")
+		} else {
+			await signIn()
+		}
 	}
-}
 
 	useEffect(() => {
 		setShippingFee(selected.reduce((acc, item) => acc + Number(item.shipping), 0).toFixed(2));
-		setSubtotal(selected.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2) );
+		setSubtotal(selected.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2));
 		setTotal((selected.reduce((acc, item) => acc + item.price * item.qty, 0) + Number(shippingFee)).toFixed(2)
 		);
 	}, [selected]);
@@ -41,10 +41,10 @@ const res= await userService.saveCart({cart:selected,userId:session.user.id})
 
 	useEffect(() => {
 		const update = async () => {
-			const data= await userService.updateCart({products:cart.cartItems})
+			const data = await userService.updateCart({products: cart.cartItems})
 			dispatch(updateCart(data))
 		}
-		if (cart.cartItems.length > 0 ) {
+		if (cart.cartItems.length > 0) {
 			update()
 		}
 	}, [])
@@ -54,30 +54,30 @@ const res= await userService.saveCart({cart:selected,userId:session.user.id})
 			 <Header/>
 			 <div className={styles.cart}>
 				 {cart?.cartItems?.length > 0 ?
-					  <div className={styles.cart__container}>
+						<div className={styles.cart__container}>
 							<CartHeader cartItems={cart.cartItems} selected={selected} setSelected={setSelected}/>
-						  <div class={styles.cart__products}>
-							  {
-									cart.cartItems.map((product)=>(
+							<div class={styles.cart__products}>
+								{
+									cart.cartItems.map((product) => (
 										 <CartProduct
-											  selected={selected}
-											  setSelected={setSelected}
-											  product={product}
-											  key={product._uid}/>
+												selected={selected}
+												setSelected={setSelected}
+												product={product}
+												key={product._uid}/>
 									))
-							  }
-						  </div>
-						  <CheckOut
-							   selected={selected}
-							   saveCartToDbHandler={saveToCartHandler}
-							   total={total}
-							    shippingFee={shippingFee}
-							   subtotal={subtotal}
-						  />
-						  <PaymentMethod/>
-					  </div>
-					  :
-					  <CartEmpty/>}
+								}
+							</div>
+							<CheckOut
+								 selected={selected}
+								 saveCartToDbHandler={saveToCartHandler}
+								 total={total}
+								 shippingFee={shippingFee}
+								 subtotal={subtotal}
+							/>
+							<PaymentMethod/>
+						</div>
+						:
+						<CartEmpty/>}
 
 			 </div>
 		 </div>

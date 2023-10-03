@@ -16,15 +16,15 @@ export default NextAuth({
 		CredentialsProvider({
 			name: "Credentials",
 			credentials: {
-				username: { label: "Username", type: "text", placeholder: "jsmith" },
-				password: { label: "Password", type: "password" },
+				username: {label: "Username", type: "text", placeholder: "jsmith"},
+				password: {label: "Password", type: "password"},
 			},
 			async authorize(credentials, req) {
 				const email = credentials.email;
 				const password = credentials.password;
-				const user = await User.findOne({ email });
+				const user = await User.findOne({email});
 				if (user) {
-					return SignInUser({ password, user });
+					return SignInUser({password, user});
 				} else {
 					throw new Error("This email does not exist.");
 				}
@@ -45,7 +45,7 @@ export default NextAuth({
 		})
 	],
 	callbacks: {
-		async session({ session, token }) {
+		async session({session, token}) {
 			let user = await User.findById(token.sub);
 			session.user.id = token.sub || user._id.toSting();
 			session.user.role = user.role || "user";
@@ -53,15 +53,15 @@ export default NextAuth({
 			return session;
 		},
 	},
-	pages:{
-		signIn:"/signin",
+	pages: {
+		signIn: "/signin",
 	},
-	session:{
-		strategy:"jwt"
+	session: {
+		strategy: "jwt"
 	},
-	secret:process.env.JWT_SECRET
+	secret: process.env.JWT_SECRET
 })
-const SignInUser = async ({ password, user }) => {
+const SignInUser = async ({password, user}) => {
 	if (!user.password) {
 		throw new Error("Please enter your password.");
 	}

@@ -3,16 +3,17 @@ import db from "../../../app/utils/db";
 import User from "../../../app/backendTools/models/UserModel";
 import Cart from "../../../app/backendTools/models/Cart";
 import Product from "../../../app/backendTools/models/Product";
+import auth from "../../../app/backendTools/middleware/auth";
 
-const handler = nc();
+const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
 	try {
 		await db.connectDb();
-		const { cart,userId } = req.body;
+		const {cart} = req.body;
 		let products = [];
-		let user = await User.findById(userId);
-		let existing_cart = await Cart.findOne({ user: user._id });
+		let user = await User.findById(req.user);
+		let existing_cart = await Cart.findOne({user: user._id});
 		if (existing_cart) {
 			await existing_cart.remove();
 		}
@@ -49,9 +50,10 @@ handler.post(async (req, res) => {
 			cartTotal: cartTotal.toFixed(2),
 			user: user._id,
 		}).save();
+		res.status(200).json({message: "Cart saved successfully"});
 		await db.disconnectDb();
 	} catch (error) {
-		return res.status(500).json({ message: error.message });
+		return res.status(500).json({message: error.message});
 	}
 });
 
