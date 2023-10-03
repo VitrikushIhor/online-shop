@@ -7,10 +7,10 @@ const handler = nc();
 handler.get(async (req, res) => {
 	try {
 		await db.connectDb();
-		let products = await Product.find().sort({ createdAt: -1 }).lean();
+		let products = await Product.find().sort({createdAt: -1}).lean();
 		res.status(200).json(products);
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(500).json({message: error.message});
 	} finally {
 		await db.disconnectDb();
 	}

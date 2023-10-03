@@ -1,13 +1,14 @@
 import styles from "./styles.module.scss";
 import {Form, Formik} from "formik";
-import {registerValidation} from "../../utils/authDefault";
 import LoginInput from "../../components/inputs/loginInput";
 import {CircleButton} from "../../components/buttons/circleButton";
+import {registerValidation} from "../../utils/validation";
 
 
-export const Register = ({signUpHandler,user,handleChange,csrfToken}) => {
+export const Register = ({signUpHandler, user, handleChange, csrfToken}) => {
 	const {
-		confirm_password,email, password, name}=user
+		confirm_password, email, password, name
+	} = user
 	return (
 		 <div className={styles.login__container}>
 			 <div className={styles.login__form}>

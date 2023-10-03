@@ -12,10 +12,10 @@ const handler = nc();
 handler.post(async (req, res) => {
 	try {
 		await db.connectDb();
-		const { email } = req.body;
-		const user = await User.findOne({ email });
+		const {email} = req.body;
+		const user = await User.findOne({email});
 		if (!user) {
-			return res.status(400).json({ message: "This email does not exist." });
+			return res.status(400).json({message: "This email does not exist."});
 		}
 		const user_id = createResetToken({
 			id: user._id.toString(),
@@ -27,10 +27,9 @@ handler.post(async (req, res) => {
 			message: "An email has been sent to you, use it to reset your password.",
 		});
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(500).json({message: error.message});
 	}
 });
-
 
 
 export default handler

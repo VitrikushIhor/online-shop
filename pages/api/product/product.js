@@ -8,11 +8,11 @@ import Category from "../../../app/backendTools/models/Category";
 handler.post(async (req, res) => {
 	try {
 		await db.connectDb();
-		const { slug, style, size } = req.body;
-		let product = await Product.findOne({ slug })
-			 .populate({ path: "category", model: Category })
-			 .populate({ path: "subCategories", model: SubCategory })
-			 .populate({ path: "reviews.reviewBy", model: User })
+		const {slug, style, size} = req.body;
+		let product = await Product.findOne({slug})
+			 .populate({path: "category", model: Category})
+			 .populate({path: "subCategories", model: SubCategory})
+			 .populate({path: "reviews.reviewBy", model: User})
 			 .lean();
 		let subProduct = product.subProducts[style];
 		let prices = subProduct.sizes
@@ -78,7 +78,8 @@ handler.post(async (req, res) => {
 							 array.findIndex((el2) => el2.size === element.size) === index
 				 ),
 		};
-		const related = await Product.find({ category: product.category._id }).lean();
+		const related = await Product.find({category: product.category._id}).lean();
+
 		//------------
 		function calculatePercentage(num) {
 			return (
@@ -93,9 +94,9 @@ handler.post(async (req, res) => {
 			).toFixed(1);
 		}
 
-		res.status(200).json(newProduct,related);
+		res.status(200).json(newProduct, related);
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(500).json({message: error.message});
 	} finally {
 		await db.disconnectDb();
 	}

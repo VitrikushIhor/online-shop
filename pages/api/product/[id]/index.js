@@ -33,7 +33,7 @@ handler.get(async (req, res) => {
 			priceBeforeDiscount,
 			quantity: product.subProducts[style].sizes[size].qty,
 		})
-	}catch (e){
+	} catch (e) {
 		return res.status(500).json({message: e.message})
 	}
 })

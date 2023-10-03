@@ -32,7 +32,7 @@ handler.post(async (req, res) => {
 		const data = await Promise.all(promises)
 		res.status(200).json(data)
 	} catch (err) {
-		res.status(404).json({ message: err })
+		res.status(404).json({message: err})
 	}
 })
 export default handler;

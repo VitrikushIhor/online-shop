@@ -2,15 +2,15 @@ import styles from "./styles.module.scss";
 import {BiLeftArrowAlt} from "react-icons/bi";
 import Link from "next/link";
 import {Form, Formik} from "formik";
-import {loginValidation} from "../../utils/authDefault";
 import LoginInput from "../../components/inputs/loginInput";
 import {CircleButton} from "../../components/buttons/circleButton";
 import {Socials} from "./Socials";
+import {loginValidation} from "../../utils/validation";
 
 
-export const Login = ({singInHandler,user,providers,handleChange}) => {
+export const Login = ({singInHandler, user, providers, handleChange}) => {
 
-	const {login_email,login_password}=user
+	const {login_email, login_password} = user
 
 	return (
 		 <div className={styles.login__container}>
@@ -32,12 +32,12 @@ export const Login = ({singInHandler,user,providers,handleChange}) => {
 							login_password
 						}}
 						validationSchema={loginValidation}
-						onSubmit={()=>{
+						onSubmit={() => {
 							singInHandler()
 						}}
 				 >
 					 {
-						 (form)=>(
+						 (form) => (
 								<Form>
 									<LoginInput
 										 type={"text"}
