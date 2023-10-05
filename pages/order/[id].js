@@ -2,6 +2,7 @@ import {OrderPage} from "../../app/screens/OrderPage";
 import {Layout} from "../../app/components/layout";
 import Meta from "../../app/components/meta";
 import {OrderService} from "../../app/services/order/order-service";
+import {getSession} from "next-auth/react";
 
 const Order = ({order, paypalClientId, stripeKey}) => {
 	return (
@@ -19,6 +20,17 @@ const Order = ({order, paypalClientId, stripeKey}) => {
 export default Order;
 
 export async function getServerSideProps(context) {
+
+	const session = await getSession(context);
+	if (!session) {
+		return {
+			redirect: {
+				destination: "/signin",
+				permanent: false,
+			},
+		};
+	}
+
 	const {query} = context;
 	const id = query.id;
 	const data = await OrderService.getById({id: id})
