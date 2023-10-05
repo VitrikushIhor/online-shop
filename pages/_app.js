@@ -7,11 +7,12 @@ import Head from "next/head";
 import {SessionProvider} from "next-auth/react"
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 
 let persistor = persistStore(store)
 
-function MyApp({Component, pageProps: { session, ...pageProps }}) {
+function MyApp({Component, pageProps: {session, ...pageProps}}) {
 	return (
 		 <>
 			 <Head>
@@ -20,24 +21,26 @@ function MyApp({Component, pageProps: { session, ...pageProps }}) {
 				 <link rel="icon" href="/favicon.ico"/>
 			 </Head>
 			 <ToastContainer
-				  position="top-right"
-				  autoClose={5000}
-				  hideProgressBar={false}
-				  newestOnTop={false}
-				  closeOnClick
-				  rtl={false}
-				  pauseOnFocusLoss
-				  draggable
-				  pauseOnHover
-				  theme="light"
+					position="top-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="light"
 			 />
-      <SessionProvider session={session}>
-			 <Provider store={store}>
-				 <PersistGate loading={null} persistor={persistor}>
-					 <Component {...pageProps} />
-				 </PersistGate>
-			 </Provider>
-			</SessionProvider>
+			 <SessionProvider session={session}>
+				 <PayPalScriptProvider deferLoading={true}>
+					 <Provider store={store}>
+						 <PersistGate loading={null} persistor={persistor}>
+							 <Component {...pageProps} />
+						 </PersistGate>
+					 </Provider>
+				 </PayPalScriptProvider>
+			 </SessionProvider>
 		 </>
 	)
 }
