@@ -5,8 +5,9 @@ import thunk from "redux-thunk"
 import storage from "redux-persist/lib/storage";
 import cart from "./cartSlice"
 import global from "./globalSlice"
+import expand from "./expandSlice";
 
-const reducers = combineReducers({cart,global})
+const reducers = combineReducers({cart, global, expand})
 
 const config = {
 	key: "root",
