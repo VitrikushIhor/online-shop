@@ -1,0 +1,62 @@
+.list {
+	margin-top: 1rem;
+
+	&__item {
+		padding: 0.5rem;
+		background: $blue-color;
+		margin-top: 10px;
+		border-radius: 3px;
+		color: #fff;
+		font-weight: 600;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@media (max-width: 800px) {
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		svg {
+			width: 22px;
+			height: 22px;
+			cursor: pointer;
+			margin-left: 1rem;
+		}
+
+		input {
+			padding: 0.5rem;
+			border: none;
+			outline: none;
+			color: #fff;
+			background: transparent;
+		}
+
+		&_expand {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+
+			button:hover {
+				background: #7e91ff;
+			}
+		}
+	}
+}
+
+
+.open {
+	background: #fff !important;
+	color: #111 !important;
+	border-radius: 3px;
+}
+
+.btn {
+	min-width: 120px;
+	padding: 5px 10px;
+	font-weight: 600;
+	cursor: pointer;
+	border-radius: 5px;
+	color: #222;
+	transition: all 0.3s;
+}
+
