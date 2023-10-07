@@ -112,3 +112,11 @@ export const shippingValidate = Yup.object({
 export const validateCoupon = Yup.object({
 	coupon: Yup.string().required("Pleace enter a coupon first !"),
 });
+
+
+export const validateCategories = Yup.object({
+	name: Yup.string()
+		 .required("Category name is required.")
+		 .min(2, "Category name must be bewteen 2 and 30 characters.")
+		 .max(30, "Category name must be bewteen 2 and 30 characters."),
+});
