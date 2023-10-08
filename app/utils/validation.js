@@ -120,3 +120,11 @@ export const validateCategories = Yup.object({
 		 .min(2, "Category name must be bewteen 2 and 30 characters.")
 		 .max(30, "Category name must be bewteen 2 and 30 characters."),
 });
+
+export const validateSubCategories = Yup.object({
+	name: Yup.string()
+		 .required("SubCategory name is required.")
+		 .min(2, "SubCategory name must be bewteen 2 and 30 characters.")
+		 .max(30, "SubCategory name must be bewteen 2 and 30 characters."),
+	parent: Yup.string().required("Please choose a parent category."),
+});
