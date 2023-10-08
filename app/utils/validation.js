@@ -128,3 +128,14 @@ export const validateSubCategories = Yup.object({
 		 .max(30, "SubCategory name must be bewteen 2 and 30 characters."),
 	parent: Yup.string().required("Please choose a parent category."),
 });
+
+export const validateCouponAdmin = Yup.object({
+	name: Yup.string()
+		 .required("Coupon name is required.")
+		 .min(2, "Coupon name must be bewteen 2 and 30 characters.")
+		 .max(30, "Coupon name must be bewteen 2 and 30 characters."),
+	discount: Yup.number()
+		 .required("Discount is required.")
+		 .min(1, "Discount must be atleast 1%")
+		 .max(99, "Discount must be 99% or less"),
+});

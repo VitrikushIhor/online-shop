@@ -7,7 +7,7 @@ import {SubCategoriesService} from "../../../../app/services/SubCategories/SubCa
 const SubCategories = ({categories, subCategories}) => {
 	return (
 		 <Meta
-				title="Categories Page"
+				title="SubCategories Page"
 		 >
 			 <AdminLayout>
 				 <SubCategoriesPage categories={categories} subCategories={subCategories}/>
