@@ -99,7 +99,7 @@ export const AdminSidebar = () => {
 					 </div>
 					 <ul className={styles.sidebar__list}>
 						 <li className={route == "product/all" ? styles.active : ""}>
-							 <Link href="/admin/dashboard/product/all">
+							 <Link href="/admin/dashboard/allProducts">
 								 <a>
 									 <FaThList/>
 									 <span className={styles.show}>All Products</span>

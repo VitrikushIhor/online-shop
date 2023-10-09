@@ -6,12 +6,16 @@ export const ProductsService = {
 		const url = `${process.env.BASE_URL}/api/products`;
 		return await axios.get(url);
 	},
-	async getBySlug({slug,style,size}) {
+	async getBySlug({slug, style, size}) {
 		const url = `${process.env.BASE_URL}/api/product/product`;
-		return await axios.post(url,{slug,style,size});
+		return await axios.post(url, {slug, style, size});
 	},
-	async getById({_id,style,size}){
+	async getById({_id, style, size}) {
 		const url = `/api/product/${_id}?style=${style}&size=${size}`;
 		return await axios.get(url);
-	}
+	},
+	async getAllAdmin() {
+		const url = `${process.env.BASE_URL}/api/admin/products`;
+		return await axios.get(url);
+	},
 };
