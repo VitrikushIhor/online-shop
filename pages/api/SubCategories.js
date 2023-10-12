@@ -2,9 +2,8 @@ import nc from "next-connect";
 import db from "../../app/utils/db";
 import Category from "../../app/backendTools/models/Category";
 import SubCategory from "../../app/backendTools/models/SubCategory";
-import auth from "../../app/backendTools/middleware/auth";
 
-const handler = nc().use(auth);
+const handler = nc();
 
 handler.get(async (req, res) => {
 	try {

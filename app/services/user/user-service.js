@@ -4,14 +4,10 @@ import axios from "axios";
 export const userService = {
 	async saveCart({cart}) {
 		const url = `/api/user/save-cart`;
-		try {
-			const {data} = await axios.post(url, {
-				cart,
-			});
-			return data;
-		} catch (error) {
-			console.log(error.message);
-		}
+		const {data} = await axios.post(url, {
+			cart,
+		});
+		return data;
 	},
 
 	async updateCart({products}) {
@@ -34,6 +30,11 @@ export const userService = {
 		} catch (error) {
 			console.log(error.message);
 		}
+	},
+	async deleteUser(id) {
+		const url = `/api/user/${id}`;
+		const {data} = await axios.delete(url);
+		return data;
 	},
 
 	async saveAddress({address}) {
@@ -76,4 +77,13 @@ export const userService = {
 			console.log(error.message);
 		}
 	},
+	async getAllUsers() {
+		const url = `${process.env.BASE_URL}/api/user/users`;
+		try {
+			const {data} = await axios.get(url);
+			return data
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
 };

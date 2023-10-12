@@ -1,5 +1,5 @@
 import Meta from "../../../../app/components/meta";
-import {AdminLayout} from "../../../../app/components/adminLayout";
+import {AdminLayout} from "../../../../app/components/admin/adminLayout";
 import {CouponsPage} from "../../../../app/screens/Admin/CouponsPage";
 import {CouponsService} from "../../../../app/services/coupons/coupons-service";
 

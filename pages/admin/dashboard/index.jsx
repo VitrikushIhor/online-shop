@@ -1,5 +1,5 @@
 import {DashboardPage} from "../../../app/screens/Admin/DashboardPage";
-import {AdminLayout} from "../../../app/components/adminLayout";
+import {AdminLayout} from "../../../app/components/admin/adminLayout";
 import Meta from "../../../app/components/meta";
 
 const Dashboard = () => {
