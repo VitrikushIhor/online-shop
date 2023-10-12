@@ -1,6 +1,6 @@
 import {CategoriesPage} from "../../../../app/screens/Admin/CategoriesPage";
 import Meta from "../../../../app/components/meta";
-import {AdminLayout} from "../../../../app/components/adminLayout";
+import {AdminLayout} from "../../../../app/components/admin/adminLayout";
 import {CategoriesService} from "../../../../app/services/categories/categories-service";
 
 const Categories = ({categories}) => {

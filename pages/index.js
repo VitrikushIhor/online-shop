@@ -1,12 +1,12 @@
 import {Layout} from "../app/components/layout";
-import {IPService} from "../app/services/Ip-service";
 import {useDispatch} from "react-redux";
 import {setCountry} from "../app/store/globalSlice";
 import Meta from "../app/components/meta";
 import {HomePage} from "../app/screens/HomePage";
 import {ProductsService} from "../app/services/products/products-service";
+import {IPService} from "../app/services/Ip-service";
 
-export default function Home({country,products}) {
+export default function Home({country, products}) {
 	const dispatch = useDispatch()
 	dispatch(setCountry(country))
 	return (
@@ -35,7 +35,7 @@ export async function getServerSideProps() {
 
 	return {
 		props: {
-			country: { name: data.name, flag: data.flag.emojitwo },
+			country: {name: data.name, flag: data.flag.emojitwo},
 			products: Products,
 		},
 	};

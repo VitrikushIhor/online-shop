@@ -139,3 +139,56 @@ export const validateCouponAdmin = Yup.object({
 		 .min(1, "Discount must be atleast 1%")
 		 .max(99, "Discount must be 99% or less"),
 });
+
+export const initialStateCreateProduct = {
+	name: "",
+	description: "",
+	brand: "",
+	sku: "",
+	discount: 0,
+	images: [],
+	description_images: [],
+	parent: "",
+	category: "",
+	subCategories: [],
+	color: {
+		color: "",
+		image: "",
+	},
+	sizes: [
+		{
+			size: "",
+			qty: "",
+			price: "",
+		},
+	],
+	details: [
+		{
+			name: "",
+			value: "",
+		},
+	],
+	questions: [
+		{
+			question: "",
+			answer: "",
+		},
+	],
+	shippingFee: "",
+};
+
+export const validateCreateProduct = Yup.object({
+	name: Yup.string()
+		 .required("Please add a name")
+		 .min(10, "Product name must bewteen 10 and 300 characters.")
+		 .max(300, "Product name must bewteen 10 and 300 characters."),
+	brand: Yup.string().required("Please add a brand"),
+	category: Yup.string().required("Please select a category."),
+	subCategories: Yup.array().min(
+		 1,
+		 "Please select atleast one sub Category."
+	),
+	sku: Yup.string().required("Please add a sku/number"),
+	color: Yup.string().required("Please add a color"),
+	description: Yup.string().required("Please add a description"),
+});

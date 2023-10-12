@@ -2,9 +2,8 @@ import db from "../../../app/utils/db";
 import Category from "../../../app/backendTools/models/Category";
 import slugify from "slugify";
 import nc from "next-connect";
-import auth from "../../../app/backendTools/middleware/auth";
 
-const handler = nc().use(auth);
+const handler = nc();
 
 handler.post(async (req, res) => {
 	try {

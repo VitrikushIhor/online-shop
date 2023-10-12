@@ -1,5 +1,5 @@
 import Meta from "../../../../app/components/meta";
-import {AdminLayout} from "../../../../app/components/adminLayout";
+import {AdminLayout} from "../../../../app/components/admin/adminLayout";
 import {SubCategoriesPage} from "../../../../app/screens/Admin/SubCategoriesPage";
 import {CategoriesService} from "../../../../app/services/categories/categories-service";
 import {SubCategoriesService} from "../../../../app/services/SubCategories/SubCategories-service";

@@ -18,4 +18,8 @@ export const ProductsService = {
 		const url = `${process.env.BASE_URL}/api/admin/products`;
 		return await axios.get(url);
 	},
+	async getAdminCategories() {
+		const url = `${process.env.BASE_URL}/api/admin/create-products`;
+		return await axios.get(url);
+	},
 };

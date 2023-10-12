@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 import {useDispatch, useSelector} from "react-redux";
-import {toggleSidebar} from "../../store/expandSlice";
+import {toggleSidebar} from "../../../store/expandSlice";
 import {MdArrowForwardIos, MdOutlineCategory, MdSpaceDashboard} from "react-icons/md";
 import {useSession} from "next-auth/react";
 import Link from "next/link";
@@ -107,7 +107,7 @@ export const AdminSidebar = () => {
 							 </Link>
 						 </li>
 						 <li className={route == "product/create" ? styles.active : ""}>
-							 <Link href="/admin/dashboard/product/create">
+							 <Link href="/admin/dashboard/createProduct">
 								 <a>
 									 <BsPatchPlus/>
 									 <span className={styles.show}>Create Product</span>

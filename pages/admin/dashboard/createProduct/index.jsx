@@ -1,27 +1,27 @@
 import Meta from "../../../../app/components/meta";
 import {AdminLayout} from "../../../../app/components/admin/adminLayout";
-import {AllProductsPage} from "../../../../app/screens/Admin/AllProductsPage";
 import {ProductsService} from "../../../../app/services/products/products-service";
+import {CreateProductPage} from "../../../../app/screens/Admin/CreateProductPage";
 
-const AllProducts = ({products}) => {
+const CreateProduct = ({data}) => {
 	return (
 		 <Meta
-				title="All Products Page"
+				title="Create Product Page"
 		 >
 			 <AdminLayout>
-				 <AllProductsPage products={products}/>
+				 <CreateProductPage categories={data.categories} parents={data.parents}/>
 			 </AdminLayout>
 		 </Meta>
 	);
 };
 
-export default AllProducts;
+export default CreateProduct;
 
 export async function getServerSideProps() {
-	const {data} = await ProductsService.getAllAdmin();
+	const {data} = await ProductsService.getAdminCategories();
 	return {
 		props: {
-			products: data,
+			data,
 		}
 	}
 }
