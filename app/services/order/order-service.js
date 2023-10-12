@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "react-toastify";
 
 
 export const OrderService = {
@@ -41,6 +42,15 @@ export const OrderService = {
 			return data
 		} catch (error) {
 			console.log(error.message);
+		}
+	},
+	async getAllOrders() {
+		const url = `${process.env.BASE_URL}/api/admin/orders`;
+		try {
+			const {data} = await axios.get(url);
+			return data
+		} catch (error) {
+			toast.error(error.message)
 		}
 	},
 };
