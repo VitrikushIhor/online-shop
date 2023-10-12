@@ -2,6 +2,7 @@ import Meta from "../../../../app/components/meta";
 import {AdminLayout} from "../../../../app/components/admin/adminLayout";
 import {ProductsService} from "../../../../app/services/products/products-service";
 import {CreateProductPage} from "../../../../app/screens/Admin/CreateProductPage";
+import {getSession} from "next-auth/react";
 
 const CreateProduct = ({data}) => {
 	return (
@@ -17,7 +18,20 @@ const CreateProduct = ({data}) => {
 
 export default CreateProduct;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(Context) {
+
+	const session = await getSession(Context);
+
+	if (!session || (session && session.user.role !== "admin")) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: "/",
+			},
+			props: {},
+		};
+	}
+
 	const {data} = await ProductsService.getAdminCategories();
 	return {
 		props: {
