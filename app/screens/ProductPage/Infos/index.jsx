@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {TbMinus, TbPlus} from "react-icons/tb";
 import {BsHandbagFill, BsHeart} from "react-icons/bs";
-import {useSession} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
 import {useDispatch, useSelector} from "react-redux";
 import {Share} from "../Share";
 import {AccordianInfos} from "../Accordian";
@@ -13,13 +13,14 @@ import {SimillarSwiper} from "../SimillarSwiper";
 import {ProductsService} from "../../../services/products/products-service";
 import {addToCart, updateCart} from "../../../store/cartSlice";
 import {toast} from "react-toastify";
+import axios from "axios";
 
-export const Infos = ({product,setActiveImg}) => {
-	const router= useRouter();
-	const { data: session } = useSession();
+export const Infos = ({product, setActiveImg}) => {
+	const router = useRouter();
+	const {data: session} = useSession();
 	const [size, setSize] = useState(router.query.size);
 	const [qty, setQty] = useState(1);
-	const { cart } = useSelector((state) => ({ ...state }));
+	const {cart} = useSelector((state) => ({...state}));
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -53,7 +54,7 @@ export const Infos = ({product,setActiveImg}) => {
 			if (exist) {
 				let newCart = cart.cartItems.map((p) => {
 					if (p._uid === exist._uid) {
-						return { ...p, qty: qty };
+						return {...p, qty: qty};
 					}
 					return p;
 				});
@@ -73,18 +74,33 @@ export const Infos = ({product,setActiveImg}) => {
 	};
 
 
+	const handleWishlist = async () => {
+		try {
+			if (!session) {
+				return signIn();
+			}
+			const {data} = await axios.put("/api/user/wishlist", {
+				product_id: product._id,
+				style: product.style,
+			});
+			toast.success(data.message)
+		} catch (error) {
+			toast.error(error.response.data.message)
+		}
+	};
+
 	return (
 		 <div className={styles.infos}>
-<div class={styles.infos__container}></div>
+			 <div class={styles.infos__container}></div>
 			 <h1 class={styles.infos__name}>{product.name}</h1>
 			 <h2 className={styles.infos_sku}>{product.sku}</h2>
 			 <div className={styles.infos__rating}>
 				 <Rating
-					  name="half-rating-read"
-					  defaultValue={product.rating}
-					  precision={0.5}
-					  readOnly
-					  style={{ color: "#FACF19" }}
+						name="half-rating-read"
+						defaultValue={product.rating}
+						precision={0.5}
+						readOnly
+						style={{color: "#FACF19"}}
 				 />
 				 {product.numReviews}
 				 {product.numReviews > 1 ? " reviews" : " review"}
@@ -92,12 +108,12 @@ export const Infos = ({product,setActiveImg}) => {
 			 <div className={styles.infos__price}>
 				 {!size ? <h2>{product.priceRange}</h2> : <h1>{product.price}$</h1>}
 				 {product.discount > 0 ? (
-					  <h3>
-						  {size && <span>{product.priceBefore}$</span>}
-						  <span>(-{product.discount}%)</span>
-					  </h3>
+						<h3>
+							{size && <span>{product.priceBefore}$</span>}
+							<span>(-{product.discount}%)</span>
+						</h3>
 				 ) : (
-					  ""
+						""
 				 )}
 			 </div>
 			 <span className={styles.infos__shipping}>
@@ -115,65 +131,65 @@ export const Infos = ({product,setActiveImg}) => {
 				 <h4>Select a Size : </h4>
 				 <div className={styles.infos__sizes_wrap}>
 					 {product.sizes.map((size, i) => (
-						  <Link
+							<Link
 								 href={`/product/${product.slug}?style=${router.query.style}&size=${i}`}
-						  >
-							  <div
+							>
+								<div
 									 className={`${styles.infos__sizes_size} ${
-										  i == router.query.size && styles.active_size
-									 }` }
+											i == router.query.size && styles.active_size
+									 }`}
 									 onClick={() => setSize(size.size)}
-							  >
-								  {size.size}
-							  </div>
-						  </Link>
+								>
+									{size.size}
+								</div>
+							</Link>
 					 ))}
 				 </div>
 			 </div>
 			 <div className={styles.infos__colors}>
 				 {product.colors &&
-					  product.colors.map((color, i) => (
+						product.colors.map((color, i) => (
 							 <span
-								  className={i == router.query.style ? styles.active_color : ""}
-								  onMouseOver={() =>
+									className={i == router.query.style ? styles.active_color : ""}
+									onMouseOver={() =>
 										 setActiveImg(product.subProducts[i].images[0].url)
-								  }
-								  onMouseLeave={() => setActiveImg("")}
+									}
+									onMouseLeave={() => setActiveImg("")}
 							 >
                 <Link href={`/product/${product.slug}?style=${i}`}>
-                  <img src={color.image} alt="" />
+                  <img src={color.image} alt=""/>
                 </Link>
               </span>
-					  ))}
+						))}
 			 </div>
 			 <div className={styles.infos__qty}>
 				 <button onClick={() => qty > 1 && setQty((prev) => prev - 1)}>
-					 <TbMinus />
+					 <TbMinus/>
 				 </button>
 				 <span>{qty}</span>
 				 <button
-					  onClick={() => qty < product.quantity && setQty((prev) => prev + 1)}
+						onClick={() => qty < product.quantity && setQty((prev) => prev + 1)}
 				 >
-					 <TbPlus />
+					 <TbPlus/>
 				 </button>
 			 </div>
 			 <div className={styles.infos__actions}>
 				 <button
-					  disabled={product.quantity < 1}
-					  style={{ cursor: `${product.quantity < 1 ? "not-allowed" : ""}` }}
-					  onClick={() => addToCartHandler()}
+						disabled={product.quantity < 1}
+						style={{cursor: `${product.quantity < 1 ? "not-allowed" : ""}`}}
+						onClick={() => addToCartHandler()}
 				 >
-					 <BsHandbagFill />
+					 <BsHandbagFill/>
 					 <b>ADD TO CART</b>
 				 </button>
 				 <button onClick={() => handleWishlist()}>
-					 <BsHeart />
+					 <BsHeart/>
 					 WISHLIST
 				 </button>
 			 </div>
 			 <Share/>
-			 <AccordianInfos details={[product.description, ...product.details]} />
-			 <SimillarSwiper />
+			 <AccordianInfos details={[product.description, ...product.details]}/>
+			 <SimillarSwiper/>
 		 </div>
 	);
 };
