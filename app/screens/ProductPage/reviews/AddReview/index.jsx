@@ -3,36 +3,86 @@ import {Rating} from "@mui/material";
 import {Images} from "../../../../components/Images";
 import {ClipLoader} from "react-spinners";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
 import {Select} from "../../../../components/Select"
+import {toast} from "react-toastify";
+import dataURItoBlob from "../../../../utils/dataURItoBlob";
+import {uploadImages} from "../../../../services/uploadImages/uploadImages-service";
+import axios from "axios";
 
 let fits = ["Small", "True to size", "Large"];
 
 
-export const AddReview = ({ product,setReviews}) => {
-	let uploaded_images = [];
-	const dispatch = useDispatch();
+export const AddReview = ({product, setReviews}) => {
+	const [loading, setLoading] = useState(false);
+
 
 	const [size, setSize] = useState("");
 	const [style, setStyle] = useState("");
 	const [fit, setFit] = useState("");
 	const [review, setReview] = useState("");
 	const [rating, setRating] = useState();
-	const [images, setImages] = useState([])
-	const [loading, setLoading] = useState(false);
+	const [images, setImages] = useState([]);
+	let uploaded_images = [];
 
-
-	// useEffect(() => {
-	// 	dispatch(hideDialog());
-	// }, []);
-
-
+	const handleSubmit = async () => {
+		setLoading(true);
+		if (!size) {
+			toast.error("Please select a size !")
+			setLoading(false)
+			return
+		} else if (!style) {
+			toast.error("Please select a style !")
+			setLoading(false)
+			return
+		} else if (!fit) {
+			toast.error("Please select a fit !")
+			setLoading(false)
+			return
+		} else if (!review) {
+			toast.error("Please add a review !")
+			setLoading(false)
+			return
+		} else if (!rating) {
+			toast.error("Please select a rating !")
+			setLoading(false)
+			return
+		} else {
+			if (images.length > 0) {
+				let temp = images.map((img) => {
+					return dataURItoBlob(img);
+				});
+				const path = "reviews images";
+				let formData = new FormData();
+				formData.append("path", path);
+				temp.forEach((img) => {
+					formData.append("file", img);
+				});
+				uploaded_images = await uploadImages(formData);
+			}
+			const {data} = await axios.put(`/api/product/${product._id}/review`, {
+				size,
+				style,
+				fit,
+				rating,
+				review,
+				images: uploaded_images,
+			});
+			setReviews(data.reviews);
+			setStyle("");
+			setSize("");
+			setFit("");
+			setImages([]);
+			setRating(0);
+			setReview("");
+			setLoading(false);
+		}
+		setLoading(false);
+	};
 
 	return (
 		 <div className={styles.reviews__add}>
-			 {/*<DialogModal />*/}
 			 <div className={styles.reviews__add_wrap}>
-				 <div className={styles.flex} style={{ gap: "10px" }}>
+				 <div className={styles.flex} style={{gap: "10px"}}>
 					 <Select
 							property={size}
 							text="Size"
@@ -52,7 +102,7 @@ export const AddReview = ({ product,setReviews}) => {
 							handleChange={setFit}
 					 />
 				 </div>
-				 <Images images={images} setImages={setImages} />
+				 <Images images={images} setImages={setImages}/>
 				 <textarea
 						name="review"
 						value={review}
@@ -65,7 +115,7 @@ export const AddReview = ({ product,setReviews}) => {
 						value={rating}
 						onChange={(e) => setRating(e.target.value)}
 						precision={0.5}
-						style={{ color: "#facf19", fontSize: "3rem" }}
+						style={{color: "#facf19", fontSize: "3rem"}}
 				 />
 				 <button
 						className={`${styles.login_btn} ${loading ? styles.disabled : ""}`}
@@ -73,7 +123,7 @@ export const AddReview = ({ product,setReviews}) => {
 						disabled={loading}
 				 >
 					 Submit Review{" "}
-					 {loading && <ClipLoader loading={loading} color="#fff" />}
+					 {loading && <ClipLoader loading={loading} color="#fff"/>}
 				 </button>
 			 </div>
 		 </div>
