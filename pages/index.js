@@ -1,4 +1,4 @@
-import {Layout} from "../app/components/layout";
+import {Layout} from "../app/components/layouts/layout";
 import {useDispatch} from "react-redux";
 import {setCountry} from "../app/store/globalSlice";
 import Meta from "../app/components/meta";

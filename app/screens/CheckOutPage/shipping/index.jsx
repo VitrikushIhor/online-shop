@@ -65,7 +65,7 @@ export const Shipping = ({user, addresses, setAddresses}) => {
 								 onClick={() => changeActiveHandler(address._id)}
 							>
 								<div className={styles.address__side}>
-									<img src={user.image} alt=""/>
+									<img src={user?.image} alt=""/>
 								</div>
 								<div className={styles.address__col}>
                 <span>

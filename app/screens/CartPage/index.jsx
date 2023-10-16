@@ -12,7 +12,7 @@ import {useRouter} from "next/router";
 import {userService} from "../../services/user/user-service";
 import {updateCart} from "../../store/cartSlice";
 
-export const CartPage = () => {
+export const CartPage = ({user}) => {
 	const {data: session} = useSession()
 	const {push} = useRouter();
 	const {cart} = useSelector((state) => ({...state}));
@@ -60,6 +60,7 @@ export const CartPage = () => {
 								{
 									cart.cartItems.map((product) => (
 										 <CartProduct
+												user={user}
 												selected={selected}
 												setSelected={setSelected}
 												product={product}

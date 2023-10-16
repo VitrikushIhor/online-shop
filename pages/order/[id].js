@@ -1,5 +1,5 @@
 import {OrderPage} from "../../app/screens/OrderPage";
-import {Layout} from "../../app/components/layout";
+import {Layout} from "../../app/components/layouts/layout";
 import Meta from "../../app/components/meta";
 import {OrderService} from "../../app/services/order/order-service";
 import {getSession} from "next-auth/react";

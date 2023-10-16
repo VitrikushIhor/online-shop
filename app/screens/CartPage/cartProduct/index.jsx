@@ -1,17 +1,23 @@
 import styles from "./styles.module.scss";
 import {MdOutlineKeyboardArrowRight} from "react-icons/md";
 import {AiOutlineDelete} from "react-icons/ai";
-import {BsHeart} from "react-icons/bs";
+import {BsFillHeartFill, BsHeart} from "react-icons/bs";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateCart} from "../../../store/cartSlice";
+import {signIn, useSession} from "next-auth/react";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 
-export const CartProduct = ({product, selected, setSelected}) => {
+export const CartProduct = ({product, selected, setSelected, user}) => {
 	const {cart} = useSelector((state) => ({...state}));
 	const [active, setActive] = useState();
 	const dispatch = useDispatch()
+	const {data: session} = useSession();
 
+	const isItemInWishlist = user.wishlist.some(item => item.product == product._id && item.style == product.style);
+	
 	const handleSelect = () => {
 		const check = selected.find(item => item._uid === product._uid)
 		if (check) {
@@ -40,6 +46,22 @@ export const CartProduct = ({product, selected, setSelected}) => {
 		dispatch(updateCart(newCart))
 	}
 
+	const addToWishList = async ({id, style}) => {
+		debugger
+		try {
+			if (!session) {
+				return signIn();
+			}
+			const {data} = await axios.put("/api/user/wishlist", {
+				product_id: id,
+				style: style,
+			});
+			toast.success(data.message)
+		} catch (error) {
+			toast.error(error.response.data.message)
+		}
+	};
+
 
 	useEffect(() => {
 		const check = selected.find(item => item._uid === product._uid)
@@ -66,8 +88,8 @@ export const CartProduct = ({product, selected, setSelected}) => {
 									? `${product.name.substring(0, 30)}`
 									: product.name}
 						 </h1>
-						 <div style={{zIndex: "2"}}>
-							 <BsHeart/>
+						 <div style={{zIndex: "2"}} onClick={() => addToWishList({id: product._id, style: product.style})}>
+							 {isItemInWishlist ? <BsFillHeartFill/> : <BsHeart/>}
 						 </div>
 						 <div
 								style={{zIndex: "2"}}

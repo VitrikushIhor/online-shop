@@ -1,4 +1,4 @@
-import {Layout} from "../../../app/components/layout";
+import {Layout} from "../../../app/components/layouts/layout";
 import Meta from "../../../app/components/meta";
 import {ResetPage} from "../../../app/screens/ResetPage";
 import jwt from "jsonwebtoken";
@@ -19,14 +19,13 @@ const Reset = ({userId}) => {
 export default Reset
 
 
-
 export async function getServerSideProps(context) {
-const {query}= context
+	const {query} = context
 	const token = query.token
-	const userId=jwt.verify(token, process.env.RESET_TOKEN_SECRET)
+	const userId = jwt.verify(token, process.env.RESET_TOKEN_SECRET)
 	return {
 		props: {
-			userId:userId.id
+			userId: userId.id
 		},
 	};
 }
