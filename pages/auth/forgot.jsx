@@ -1,4 +1,4 @@
-import {Layout} from "../../app/components/layout";
+import {Layout} from "../../app/components/layouts/layout";
 import Meta from "../../app/components/meta";
 import {ForgotPage} from "../../app/screens/Forgot";
 

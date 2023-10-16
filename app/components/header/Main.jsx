@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 
 export const Main = () => {
 	const {cart} = useSelector((state) => ({...state}))
+	console.log(cart)
 	return (
 		 <div className={styles.main}>
 			 <div className={styles.main__container}>
@@ -23,7 +24,7 @@ export const Main = () => {
 				 <Link href={"/cart"}>
 					 <a className={styles.cart}>
 						 <FaOpencart/>
-						 <span>0</span>
+						 <span>{cart.cartItems.length}</span>
 					 </a>
 				 </Link>
 			 </div>

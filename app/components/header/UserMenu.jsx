@@ -17,17 +17,17 @@ export const UserMenu = ({logIn}) => {
 							<div className={styles.col}>
 								<span>Welcome Back,</span>
 								<h3>{logIn.user.name}</h3>
-								<span onClick={()=>signOut()}>Sing Out</span>
+								<span onClick={() => signOut()}>Sing Out</span>
 							</div>
 						</div>
 						: <div className={styles.flex}>
-							<button className="btn_primary" onClick={()=>signIn()}>Register</button>
-							<button className="btn_outlined" onClick={()=>signIn()}>Login</button>
+							<button className="btn_primary" onClick={() => signIn()}>Register</button>
+							<button className="btn_outlined" onClick={() => signIn()}>Login</button>
 						</div>
 			 }
 			 <ul>
 				 <li>
-					 <Link href="/profile">Account</Link>
+					 <Link href="/profile/profile">Account</Link>
 				 </li>
 				 <li>
 					 <Link href="/profile/orders">My Orders</Link>

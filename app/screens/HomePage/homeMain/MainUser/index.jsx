@@ -13,8 +13,8 @@ import {userSwiperArray} from "../../../../data/home";
 import {useRouter} from "next/router";
 
 export const MainUser = () => {
-	const { data: session } = useSession();
-	const { push } = useRouter();
+	const {data: session} = useSession();
+	const {push} = useRouter();
 
 	return (
 		 <div className={styles.user}>
@@ -26,7 +26,7 @@ export const MainUser = () => {
 			 <div className={styles.user__container}>
 				 {session ? (
 						<div className={styles.user__infos}>
-							<img src={session.user?.image} alt="" />
+							<img src={session.user?.image} alt=""/>
 							<h4>{session.user.name}</h4>
 						</div>
 				 ) : (
@@ -36,8 +36,8 @@ export const MainUser = () => {
 								 alt=""
 							/>
 							<div className={styles.user__infos_btns}>
-								<button  onClick={()=>push("/signin")}>Register</button>
-								<button onClick={()=>push("/signin")}>Login</button>
+								<button onClick={() => push("/signin")}>Register</button>
+								<button onClick={() => push("/signin")}>Login</button>
 							</div>
 						</div>
 				 )}
@@ -45,28 +45,28 @@ export const MainUser = () => {
 					 <li>
 						 <Link href="/profile">
 							 <a>
-								 <IoSettingsOutline />
+								 <IoSettingsOutline/>
 							 </a>
 						 </Link>
 					 </li>
 					 <li>
 						 <Link href="">
 							 <a>
-								 <HiOutlineClipboardList />
+								 <HiOutlineClipboardList/>
 							 </a>
 						 </Link>
 					 </li>
 					 <li>
 						 <Link href="">
 							 <a>
-								 <AiOutlineMessage />
+								 <AiOutlineMessage/>
 							 </a>
 						 </Link>
 					 </li>
 					 <li>
-						 <Link href="">
+						 <Link href="/wishlist">
 							 <a>
-								 <BsHeart />
+								 <BsHeart/>
 							 </a>
 						 </Link>
 					 </li>
@@ -78,17 +78,17 @@ export const MainUser = () => {
 							className={styles.new}
 					 />
 					 <Swiper
-						  effect={'cards'}
-						  grabCursor={true}
-						  modules={[EffectCards]}
-						  className="userSwiper"
+							effect={'cards'}
+							grabCursor={true}
+							modules={[EffectCards]}
+							className="userSwiper"
 					 >
 						 {userSwiperArray.map((item) => (
-							  <SwiperSlide>
-								  <Link href="">
-									  <img src={item.image} alt="" />
-								  </Link>
-							  </SwiperSlide>
+								<SwiperSlide>
+									<Link href="">
+										<img src={item.image} alt=""/>
+									</Link>
+								</SwiperSlide>
 						 ))}
 					 </Swiper>
 				 </div>

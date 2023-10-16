@@ -96,3 +96,4 @@ export const validateCreateProduct = (product, images) => {
 		return "valid";
 	}
 };
+

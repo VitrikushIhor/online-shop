@@ -1,22 +1,12 @@
 import {CheckOutPage} from "../app/screens/CheckOutPage";
-import {getSession, useSession} from "next-auth/react";
+import {getSession} from "next-auth/react";
 import {Header} from "../app/screens/CartPage/header";
 import Meta from "../app/components/meta";
 import {Footer} from "../app/components/footer";
-import {useEffect} from "react";
-import {useRouter} from "next/router";
 import {userService} from "../app/services/user/user-service";
 import {CartService} from "../app/services/cart/cart-service";
 
 const CheckOut = ({user, cart}) => {
-	const {data} = useSession()
-	const {push} = useRouter();
-
-	useEffect(() => {
-		if (!data) {
-			push("/login"); // Перенаправлення на сторінку входу, якщо користувач не аутентифікований
-		}
-	}, [data]);
 	return (
 		 <Meta
 				title="Checkout"
