@@ -1,0 +1,40 @@
+.offers{
+	grid-area: offers;
+	height: 200px;
+	border-radius: 10px;
+	box-shadow: $shadow-1;
+	background-color: #fff;
+	overflow: hidden;
+	background-image: url("../../../../../public/images/flash.webp");
+	background-position: -50px;
+	background-size:contain;
+	&__text {
+		max-width: 200px;
+		position: absolute;
+		top: 1.3rem;
+		left: 2rem;
+		font-weight: 600;
+		background: rgba(255, 255, 255, 0.418);
+		padding: 1rem;
+		color: $blue-color;
+		text-align: center;
+		a {
+			margin-top: 2rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: $blue-color;
+			height: 40px;
+			font-weight: 600;
+			font-size: 1rem;
+			color: #fff;
+			border: 1px solid #fff;
+			animation: all 0.2s ease-in-out;
+			border-color: #fff;
+			&:hover {
+				transform: scale(1.05);
+				font-size: 16px;
+			}
+		}
+	}
+}
