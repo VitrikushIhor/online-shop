@@ -4,12 +4,12 @@ import {Top} from "./Top";
 import {Main} from "./Main";
 
 
-export const Header = () => {
+export const Header = ({searchHandler}) => {
 	return (
 		 <header className={styles.header}>
 			 <Ad/>
 			 <Top/>
-			 <Main/>
+			 <Main searchHandler={searchHandler}/>
 		 </header>
 	);
 };
