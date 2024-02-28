@@ -44,7 +44,7 @@ export const Main = ({searchHandler}) => {
 				 <Link href="/cart">
 					 <a className={styles.cart}>
 						 <FaOpencart/>
-						 <span>{cart.cartItems.length}</span>
+						 {cart.cartItems ? <span>{cart?.cartItems?.length}</span> : <span>0</span>}
 					 </a>
 				 </Link>
 			 </div>

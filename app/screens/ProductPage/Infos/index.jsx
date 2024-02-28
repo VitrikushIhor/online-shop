@@ -49,10 +49,10 @@ export const Infos = ({product, setActiveImg}) => {
 			return;
 		} else {
 			let _uid = `${data._id}_${product.style}_${router.query.size}`;
-			let exist = cart.cartItems.find((p) => p._uid === _uid);
+			let exist = cart.cartItems?.find((p) => p._uid === _uid);
 
 			if (exist) {
-				let newCart = cart.cartItems.map((p) => {
+				let newCart = cart?.cartItems.map((p) => {
 					if (p._uid === exist._uid) {
 						return {...p, qty: qty};
 					}
