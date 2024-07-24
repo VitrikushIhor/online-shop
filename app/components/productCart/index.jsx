@@ -4,6 +4,7 @@ import {ProductCardSwiper} from "../productCardSwiper";
 
 
 export const ProductCart = ({product}) => {
+	console.log(product)
 	const [active,setActive] = useState(0)
 	const [images,setImages] = useState(product.subProducts[active]?.images)
 	const [prices, setPrices] = useState(

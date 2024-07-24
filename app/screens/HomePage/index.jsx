@@ -16,6 +16,7 @@ import {ProductCart} from "../../components/productCart";
 
 
 export const HomePage = ({products}) => {
+	console.log("products",products)
 	const isMedium = useMediaQuery({query: "(max-width:850px)"});
 	const isMobile = useMediaQuery({query: "(max-width:550px)"});
 	return (
